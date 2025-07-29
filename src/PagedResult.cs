@@ -18,13 +18,6 @@ public sealed class PagedResult<T>
     public List<T> Items { get; set; } = null!;
 
     /// <summary>
-    /// The zero-based index of the current page (e.g., 0 for the first page).
-    /// </summary>
-    [JsonPropertyName("pageIndex")]
-    [JsonProperty("pageIndex")]
-    public int PageIndex { get; set; }
-
-    /// <summary>
     /// The maximum number of items requested per page.
     /// </summary>
     [JsonPropertyName("pageSize")]
@@ -32,9 +25,17 @@ public sealed class PagedResult<T>
     public int PageSize { get; set; }
 
     /// <summary>
-    /// The total number of items across all pages (i.e., before paging was applied).
+    /// Total rows that match the query (for “showing 51‑100 of 1 234”).
     /// </summary>
     [JsonPropertyName("totalCount")]
     [JsonProperty("totalCount")]
     public int TotalCount { get; set; }
+
+    /// <summary>
+    /// Opaque storage continuation token.  
+    /// ‑ `null` → the current page was the last page.
+    /// </summary>
+    [JsonPropertyName("continuationToken")]
+    [JsonProperty("continuationToken")]
+    public string? ContinuationToken { get; set; }
 }
