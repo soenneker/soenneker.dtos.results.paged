@@ -18,18 +18,20 @@ public sealed class PagedResult<T>
     public List<T> Items { get; set; } = null!;
 
     /// <summary>
-    /// The maximum number of items requested per page.
+    /// The number of items returned per page in the response. 
+    /// This may reflect the client's requested page size, or a server-defined default or limit.
     /// </summary>
     [JsonPropertyName("pageSize")]
     [JsonProperty("pageSize")]
     public int PageSize { get; set; }
 
     /// <summary>
-    /// Total rows that match the query (for “showing 51‑100 of 1 234”).
+    /// The total number of items that match the query across all pages.
+    /// May be null if the count is not computed or not applicable (e.g., in continuation-based pagination).
     /// </summary>
     [JsonPropertyName("totalCount")]
     [JsonProperty("totalCount")]
-    public int TotalCount { get; set; }
+    public int? TotalCount { get; set; }
 
     /// <summary>
     /// Opaque storage continuation token.  
