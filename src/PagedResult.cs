@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Soenneker.Attributes.PublicOpenApiObject;
 
 namespace Soenneker.Dtos.Results.Paged;
 
@@ -8,6 +9,7 @@ namespace Soenneker.Dtos.Results.Paged;
 /// A generic container for paginated results returned to the client.
 /// </summary>
 /// <typeparam name="T">The type of each item in the result set.</typeparam>
+[PublicOpenApiObject]
 public sealed class PagedResult<T>
 {
     /// <summary>
