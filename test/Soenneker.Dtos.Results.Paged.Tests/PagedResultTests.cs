@@ -1,11 +1,10 @@
-﻿using Soenneker.Tests.Unit;
-using Xunit;
+using Soenneker.Tests.Unit;
 
 namespace Soenneker.Dtos.Results.Paged.Tests;
 
 public sealed class PagedResultTests : UnitTest
 {
-    [Fact]
+    [Test]
     public void Default()
     {
 
