@@ -14,10 +14,5 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Soenneker.Dtos.Results.Paged\Soenneker.Dtos.Results.Paged.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="testconfig.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
 </Project>
+
