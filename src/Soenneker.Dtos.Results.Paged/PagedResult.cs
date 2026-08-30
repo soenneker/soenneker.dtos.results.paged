@@ -17,7 +17,7 @@ public sealed class PagedResult<T>
     /// </summary>
     [JsonPropertyName("items")]
     [JsonProperty("items")]
-    public List<T> Items { get; set; } = null!;
+    public List<T> Items { get; set; } = [];
 
     /// <summary>
     /// Effective page-size limit used for this response, which may differ from the requested size because of server defaults or limits.

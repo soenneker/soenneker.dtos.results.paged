@@ -5,7 +5,7 @@
 
 # Soenneker.Dtos.Results.Paged
 
-Returns one page of query results together with page-size, optional total-count, and opaque continuation-cursor metadata.
+A generic response DTO for one page of items plus the effective page size, optional total count, and an opaque next-page cursor.
 
 ## Install
 
@@ -13,15 +13,31 @@ Returns one page of query results together with page-size, optional total-count,
 dotnet add package Soenneker.Dtos.Results.Paged
 ```
 
-## What you get
+## Create a page
 
-- `PagedResult<T>` — Returns one page of query results together with page-size, optional total-count, and opaque continuation-cursor metadata.
+```csharp
+using Soenneker.Dtos.Results.Paged;
 
-## API at a glance
+var page = new PagedResult<OrderDto>
+{
+    Items = orders,
+    PageSize = 50,
+    TotalCount = includeCount ? totalCount : null,
+    ContinuationToken = nextCursor
+};
+```
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `PagedResult<T>.Items` | Items included in the current page, in the order determined by the query. | Items included in the current page, in the order determined by the query. |
-| `PagedResult<T>.PageSize` | Effective page-size limit used for this response, which may differ from the requested size because of server defaults or limits. | Effective page-size limit used for this response, which may differ from the requested size because of server defaults or limits. |
-| `PagedResult<T>.TotalCount` | Total number of records matching the query across all pages, or `null` when counting was not requested or computed. | Total number of records matching the query across all pages, or `null` when counting was not requested or computed. |
-| `PagedResult<T>.ContinuationToken` | Opaque cursor for requesting the next page, or `null` when no additional page is available; clients must not parse or modify it. | Opaque cursor for requesting the next page, or `null` when no additional page is available; clients must not parse or modify it. |
+`Items` starts as an empty list, so an empty page can be represented without assigning it. `PageSize` describes the effective limit for the response; it is not necessarily equal to `Items.Count`, particularly on the final page.
+
+## Fetch the next page
+
+```csharp
+if (page.ContinuationToken is { } cursor)
+{
+    request.ContinuationToken = cursor;
+}
+```
+
+Treat `ContinuationToken` as opaque and send it back unchanged. A null token conventionally means there is no next page, but the API producing the DTO defines that contract. `TotalCount` is null when a count was not requested or computed and may be more expensive for the server to produce.
+
+The JSON property names are `items`, `pageSize`, `totalCount`, and `continuationToken` under both `System.Text.Json` and Newtonsoft.Json. Null-member omission follows the configured serializer options.
