@@ -40,4 +40,4 @@ if (page.ContinuationToken is { } cursor)
 
 Treat `ContinuationToken` as opaque and send it back unchanged. A null token conventionally means there is no next page, but the API producing the DTO defines that contract. `TotalCount` is null when a count was not requested or computed and may be more expensive for the server to produce.
 
-The JSON property names are `items`, `pageSize`, `totalCount`, and `continuationToken` under both `System.Text.Json` and Newtonsoft.Json. Null-member omission follows the configured serializer options.
+The JSON property names are `items`, `pageSize`, `totalCount`, and `continuationToken` under `System.Text.Json`. Null-member omission follows the configured serializer options.
